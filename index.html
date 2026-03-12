@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prime Finish Cleaning Co</title>
+  <style>
+    :root {
+      --navy: #0A236A;
+      --navy-dark: #07184A;
+      --gold: #D4AF37;
+      --gold-soft: #E7C96A;
+      --cream: #F8F5EC;
+      --text: #1f2937;
+      --muted: #64748b;
+      --white: #ffffff;
+      --border: #e5e7eb;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--cream);
+      line-height: 1.5;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea {
+      font: inherit;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      background: rgba(248, 245, 236, 0.94);
+      border-bottom: 1px solid var(--gold-soft);
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 0;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      border-radius: 12px;
+      background: transparent;
+    }
+
+    .brand-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-subtitle {
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    .nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: var(--white);
+      color: var(--text);
+      border: 1px solid var(--border);
+      font-size: 0.95rem;
+      transition: 0.2s ease;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: var(--white);
+    }
+
+    .page {
+      display: none;
+      padding: 56px 0 72px;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 60%, var(--navy-dark) 100%);
+      color: var(--white);
+      border-bottom: 1px solid var(--gold-soft);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 36px;
+      align-items: center;
+      padding: 72px 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(231, 201, 106, 0.9);
+      background: rgba(255, 255, 255, 0.08);
+      font-size: 0.92rem;
+      margin-bottom: 16px;
+    }
+
+    h1, h2, h3 { margin: 0; line-height: 1.15; }
+    h1 { font-size: clamp(2.2rem, 5vw, 4rem); }
+    h2 { font-size: clamp(1.7rem, 3vw, 2.4rem); }
+    h3 { font-size: 1.25rem; }
+
+    .hero p.lead {
+      margin: 18px 0 0;
+      font-size: 1.1rem;
+      color: #dbeafe;
+      max-width: 640px;
+    }
+
+    .tagline {
+      margin-top: 14px;
+      color: var(--gold-soft);
+      font-weight: 700;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 22px;
+      border-radius: 18px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      font-weight: 700;
+      transition: transform 0.18s ease, opacity 0.18s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary {
+      background: var(--navy);
+      color: var(--white);
+    }
+    .btn-light {
+      background: var(--cream);
+      color: var(--navy);
+      border-color: var(--gold);
+    }
+
+    .gallery-grid,
+    .card-grid,
+    .package-grid,
+    .grid-2,
+    .areas-grid,
+    .focus-grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .gallery-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .gallery-card {
+      aspect-ratio: 1 / 1;
+      border-radius: 28px;
+      border: 1px solid rgba(231, 201, 106, 0.9);
+      background: rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #dbeafe;
+      text-align: center;
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .gallery-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 22px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .section-head p,
+    .muted {
+      color: var(--muted);
+      margin: 10px 0 0;
+      max-width: 700px;
+    }
+
+    .card-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card,
+    .panel,
+    .package,
+    .chip,
+    .form-wrap {
+      background: var(--white);
+      border: 1px solid var(--gold-soft);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .card {
+      padding: 24px;
+    }
+
+    .card p {
+      color: var(--muted);
+      margin: 12px 0 0;
+    }
+
+    .learn-more {
+      margin-top: 16px;
+      display: inline-block;
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      cursor: pointer;
+      color: var(--navy);
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    .page-back {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: var(--navy);
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    .grid-2 {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+
+    .panel {
+      padding: 28px;
+    }
+
+    .focus-grid {
+      grid-template-columns: 1fr;
+      margin-top: 18px;
+    }
+
+    .focus-grid .chip,
+    .areas-grid .chip,
+    .includes-list li,
+    .addon-grid .chip,
+    .partners-grid .chip {
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      box-shadow: none;
+    }
+
+    .includes-list {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0 0;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .package-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .package {
+      padding: 28px;
+    }
+
+    .package .accent {
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .package ul {
+      margin: 18px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .package .best-for {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: #f8fafc;
+      color: var(--text);
+    }
+
+    .addon-grid,
+    .partners-grid,
+    .areas-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .addon-grid,
+    .partners-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .areas-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .form-layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .form-wrap {
+      padding: 28px;
+    }
+
+    form .fields {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    form label {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    form label.full { grid-column: 1 / -1; }
+
+    form input,
+    form select,
+    form textarea {
+      width: 100%;
+      margin-top: 8px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid #cbd5e1;
+      background: var(--white);
+    }
+
+    form textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .screening-header {
+      grid-column: 1 / -1;
+      padding-top: 8px;
+    }
+
+    .screening-header p {
+      color: var(--muted);
+      margin: 8px 0 0;
+    }
+
+    footer {
+      border-top: 1px solid var(--gold-soft);
+      background: var(--navy-dark);
+      color: #dbeafe;
+      padding: 22px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .grid-2,
+      .form-layout,
+      .card-grid,
+      .package-grid,
+      .addon-grid,
+      .partners-grid,
+      .areas-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero-grid,
+      .form-layout,
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .gallery-grid,
+      .card-grid,
+      .package-grid,
+      .addon-grid,
+      .partners-grid,
+      .areas-grid,
+      .includes-list,
+      form .fields {
+        grid-template-columns: 1fr;
+      }
+
+      .page {
+        padding: 40px 0 56px;
+      }
+
+      .hero-grid {
+        padding: 56px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#" class="brand" data-page-link="home">
+        <img src="logo.jpg" alt="Prime Finish Cleaning Co Logo" />
+        <div>
+          <div class="brand-title">Prime Finish Cleaning Co</div>
+          <div class="brand-subtitle">Serving the Triad since 2019</div>
+        </div>
+      </a>
+
+      <nav class="nav">
+        <a href="#" data-page-link="home" class="active">Home</a>
+        <a href="#" data-page-link="about">About</a>
+        <a href="#" data-page-link="services">Services</a>
+        <a href="#" data-page-link="packages">Packages</a>
+        <a href="#" data-page-link="estimate">Estimate</a>
+        <a href="#" data-page-link="employment">Work With Us</a>
+        <a href="#" data-page-link="partners">For Contractors</a>
+        <a href="#" data-page-link="areas">Areas</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="page-home" class="page active">
+      <div class="hero">
+        <div class="container hero-grid">
+          <div>
+            <div class="eyebrow">Residential • Commercial • Post-Construction</div>
+            <h1>Professional cleaning services for homes, businesses, rentals, and construction projects.</h1>
+            <p class="lead">Prime Finish Cleaning Co helps homeowners, property managers, contractors, and business owners keep their spaces clean, polished, and ready for what comes next.</p>
+            <p class="tagline">Precision Cleaning. Prime Results.</p>
+            <div class="button-row">
+              <button class="btn btn-primary" data-page-link="estimate">Get a Free Estimate</button>
+              <button class="btn btn-light" data-page-link="employment">Work With Us</button>
+            </div>
+          </div>
+
+          <div class="gallery-grid">
+            <div class="gallery-card"><img src="logo.jpg" alt="Prime Finish Cleaning Co logo" /></div>
+            <div class="gallery-card"><img src="bedroom-before-after.jpg" alt="Bedroom before and after cleaning" /></div>
+            <div class="gallery-card"><img src="commercial-cleaning.jpg" alt="Commercial cleaning work" /></div>
+            <div class="gallery-card"><img src="restuarant-before-after.jpg" alt="Restaurant before and after cleaning" /></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container page">
+        <div class="section-head">
+          <div>
+            <h2>Our Services</h2>
+            <p>Each category opens like its own page so visitors can quickly see what is included.</p>
+          </div>
+          <button class="btn btn-primary" data-page-link="services">View All Service Pages</button>
+        </div>
+
+        <div class="card-grid">
+          <div class="card"><div>✨</div><h3>Routine Home Cleaning</h3><p>Keep your home consistently fresh with weekly, bi-weekly, or monthly cleaning services designed for busy households and professionals.</p><button class="learn-more" data-page-link="routine">Learn more</button></div>
+          <div class="card"><div>🧼</div><h3>Deep Cleaning</h3><p>A more detailed top-to-bottom cleaning for homes that need extra attention, seasonal resets, or a first-time professional clean.</p><button class="learn-more" data-page-link="deep">Learn more</button></div>
+          <div class="card"><div>📦</div><h3>Move-In / Move-Out Cleaning</h3><p>Prepare a property for its next chapter with detailed cleaning that helps homes feel fresh, presentable, and ready.</p><button class="learn-more" data-page-link="move">Learn more</button></div>
+          <div class="card"><div>🏢</div><h3>Commercial Cleaning</h3><p>Reliable cleaning support for offices, rentals, shared spaces, and other properties that need a clean, professional appearance.</p><button class="learn-more" data-page-link="commercial">Learn more</button></div>
+          <div class="card"><div>🛏️</div><h3>Airbnb & Rental Turnovers</h3><p>Fast-turnaround cleaning for short-term rentals and investment properties that need to stay guest-ready and on schedule.</p><button class="learn-more" data-page-link="airbnb">Learn more</button></div>
+          <div class="card"><div>🏗️</div><h3>Post-Construction Cleaning</h3><p>Detailed cleanup after renovations, remodels, and construction so the space is clean, polished, and ready to use.</p><button class="learn-more" data-page-link="construction">Learn more</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-about" class="page">
+      <div class="container">
+        <button class="page-back" data-page-link="home">← Back to Home</button>
+        <div class="grid-2">
+          <div>
+            <h2>About Prime Finish Cleaning Co</h2>
+            <p class="muted">Merciful Maids began serving the Triad area in 2019 with a simple mission: provide reliable, high-quality cleaning services that help homes, businesses, and properties stay clean, organized, and ready for what comes next.</p>
+            <p class="muted">From 2019 through early 2026 the company operated under the name Merciful Maids. During that time we built experience cleaning homes, rental properties, and commercial spaces across the Triad while developing the systems and standards that guide our work today.</p>
+            <p class="muted">In 2026 the business evolved into Prime Finish Cleaning Co to reflect a broader vision: supporting homeowners, property managers, contractors, and businesses with dependable cleaning services ranging from routine home maintenance to post-construction cleanup.</p>
+            <p class="muted">What started as a small local cleaning operation has grown into a service focused on consistency, professionalism, and attention to detail on every job. Every space we clean is treated with care so clients can enjoy a fresh environment to live, work, and build in.</p>
+            <p><strong>Precision Cleaning. Prime Results.</strong></p>
+          </div>
+          <div class="panel">
+            <h3>What We Focus On</h3>
+            <div class="focus-grid">
+              <div class="chip">Residential home cleaning</div>
+              <div class="chip">Recurring maintenance cleaning</div>
+              <div class="chip">Commercial and office cleaning</div>
+              <div class="chip">Airbnb and rental turnovers</div>
+              <div class="chip">Move-in / move-out cleaning</div>
+              <div class="chip">Post-construction cleanup</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-services" class="page">
+      <div class="container">
+        <button class="page-back" data-page-link="home">← Back to Home</button>
+        <h2>Service Pages</h2>
+        <p class="muted">Choose a service below to view its own page and see what is included.</p>
+        <div class="card-grid" style="margin-top: 28px;">
+          <button class="card" data-page-link="routine"><div>✨</div><h3>Routine Home Cleaning</h3><p>Keep your home consistently fresh with weekly, bi-weekly, or monthly cleaning services designed for busy households and professionals.</p></button>
+          <button class="card" data-page-link="deep"><div>🧼</div><h3>Deep Cleaning</h3><p>A more detailed top-to-bottom cleaning for homes that need extra attention, seasonal resets, or a first-time professional clean.</p></button>
+          <button class="card" data-page-link="move"><div>📦</div><h3>Move-In / Move-Out Cleaning</h3><p>Prepare a property for its next chapter with detailed cleaning that helps homes feel fresh, presentable, and ready.</p></button>
+          <button class="card" data-page-link="commercial"><div>🏢</div><h3>Commercial Cleaning</h3><p>Reliable cleaning support for offices, rentals, shared spaces, and other properties that need a clean, professional appearance.</p></button>
+          <button class="card" data-page-link="airbnb"><div>🛏️</div><h3>Airbnb & Rental Turnovers</h3><p>Fast-turnaround cleaning for short-term rentals and investment properties that need to stay guest-ready and on schedule.</p></button>
+          <button class="card" data-page-link="construction"><div>🏗️</div><h3>Post-Construction Cleaning</h3><p>Detailed cleanup after renovations, remodels, and construction so the space is clean, polished, and ready to use.</p></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-routine" class="page"><div class="container"><button class="page-back" data-page-link="services">← Back to Service Pages</button><div class="panel"><div>✨</div><h2>Routine Home Cleaning</h2><p class="muted">Keep your home consistently fresh with weekly, bi-weekly, or monthly cleaning services designed for busy households and professionals.</p><h3 style="margin-top:22px;">What’s Included</h3><ul class="includes-list"><li>Dusting furniture and surfaces</li><li>Vacuuming carpets and rugs</li><li>Sweeping and mopping floors</li><li>Cleaning countertops and sinks</li><li>Sanitizing bathrooms</li><li>Emptying trash bins</li></ul><div class="button-row"><button class="btn btn-primary" data-page-link="estimate">Request This Service</button><button class="btn btn-light" data-page-link="employment">Join Our Team</button></div></div></div></section>
+    <section id="page-deep" class="page"><div class="container"><button class="page-back" data-page-link="services">← Back to Service Pages</button><div class="panel"><div>🧼</div><h2>Deep Cleaning</h2><p class="muted">A more detailed top-to-bottom cleaning for homes that need extra attention, seasonal resets, or a first-time professional clean.</p><h3 style="margin-top:22px;">What’s Included</h3><ul class="includes-list"><li>Baseboards and trim cleaning</li><li>Ceiling fan and vent dusting</li><li>Interior microwave cleaning</li><li>Detailed bathroom scrubbing</li><li>Cabinet exterior wipe-down</li><li>Heavy dust and buildup removal</li></ul><div class="button-row"><button class="btn btn-primary" data-page-link="estimate">Request This Service</button><button class="btn btn-light" data-page-link="employment">Join Our Team</button></div></div></div></section>
+    <section id="page-move" class="page"><div class="container"><button class="page-back" data-page-link="services">← Back to Service Pages</button><div class="panel"><div>📦</div><h2>Move-In / Move-Out Cleaning</h2><p class="muted">Prepare a property for its next chapter with detailed cleaning that helps homes feel fresh, presentable, and ready.</p><h3 style="margin-top:22px;">What’s Included</h3><ul class="includes-list"><li>Kitchen and appliance wipe-downs</li><li>Cabinet and drawer cleaning</li><li>Bathroom sanitizing</li><li>Baseboard and surface cleaning</li><li>Vacuuming and mopping floors</li><li>Trash removal</li></ul><div class="button-row"><button class="btn btn-primary" data-page-link="estimate">Request This Service</button><button class="btn btn-light" data-page-link="employment">Join Our Team</button></div></div></div></section>
+    <section id="page-commercial" class="page"><div class="container"><button class="page-back" data-page-link="services">← Back to Service Pages</button><div class="panel"><div>🏢</div><h2>Commercial Cleaning</h2><p class="muted">Reliable cleaning support for offices, rentals, shared spaces, and other properties that need a clean, professional appearance.</p><h3 style="margin-top:22px;">What’s Included</h3><ul class="includes-list"><li>Office and lobby cleaning</li><li>Restroom sanitizing</li><li>Trash and common area service</li><li>Floor care</li><li>Breakroom wipe-downs</li><li>Recurring maintenance options</li></ul><div class="button-row"><button class="btn btn-primary" data-page-link="estimate">Request This Service</button><button class="btn btn-light" data-page-link="employment">Join Our Team</button></div></div></div></section>
+    <section id="page-airbnb" class="page"><div class="container"><button class="page-back" data-page-link="services">← Back to Service Pages</button><div class="panel"><div>🛏️</div><h2>Airbnb & Rental Turnovers</h2><p class="muted">Fast-turnaround cleaning for short-term rentals and investment properties that need to stay guest-ready and on schedule.</p><h3 style="margin-top:22px;">What’s Included</h3><ul class="includes-list"><li>Surface cleaning and sanitizing</li><li>Trash removal</li><li>Bed reset and presentation</li><li>Kitchen and bathroom refresh</li><li>Laundry add-on available</li><li>Quick turnaround support</li></ul><div class="button-row"><button class="btn btn-primary" data-page-link="estimate">Request This Service</button><button class="btn btn-light" data-page-link="employment">Join Our Team</button></div></div></div></section>
+    <section id="page-construction" class="page"><div class="container"><button class="page-back" data-page-link="services">← Back to Service Pages</button><div class="panel"><div>🏗️</div><h2>Post-Construction Cleaning</h2><p class="muted">Detailed cleanup after renovations, remodels, and construction so the space is clean, polished, and ready to use.</p><h3 style="margin-top:22px;">What’s Included</h3><ul class="includes-list"><li>Construction dust removal</li><li>Glass and surface cleaning</li><li>Cabinet, counter, and fixture wipe-downs</li><li>Vacuuming and mopping hard floors</li><li>Debris removal</li><li>Final detail cleaning</li></ul><div class="button-row"><button class="btn btn-primary" data-page-link="estimate">Request This Service</button><button class="btn btn-light" data-page-link="employment">Join Our Team</button></div></div></div></section>
+
+    <section id="page-packages" class="page">
+      <div class="container">
+        <button class="page-back" data-page-link="home">← Back to Home</button>
+        <h2>Residential Packages</h2>
+        <p class="muted">Make it easy for clients to choose the right level of service with clear package options.</p>
+        <div class="package-grid" style="margin-top: 28px;">
+          <div class="package"><div class="accent">Light maintenance clean</div><h3 style="margin-top:10px;">Basic Package</h3><ul><li>Dusting furniture and surfaces</li><li>Vacuuming carpets and rugs</li><li>Sweeping and mopping floors</li><li>Kitchen countertops and sink cleaning</li><li>Exterior appliance wipe-down</li><li>Bathroom cleaning</li><li>Emptying trash bins</li></ul><div class="best-for">Best for weekly or bi-weekly upkeep.</div></div>
+          <div class="package"><div class="accent">Detailed refresh</div><h3 style="margin-top:10px;">Silver Package</h3><ul><li>Everything in Basic</li><li>Baseboard dusting</li><li>Cabinet exterior wipe-down</li><li>Ceiling fan dusting</li><li>Interior microwave cleaning</li><li>Detailed bathroom cleaning</li><li>Light wall and door spot cleaning</li></ul><div class="best-for">Best for monthly service or homes that need more attention.</div></div>
+          <div class="package"><div class="accent">Full deep clean</div><h3 style="margin-top:10px;">Gold Package</h3><ul><li>Everything in Silver</li><li>Interior oven cleaning</li><li>Interior refrigerator cleaning</li><li>Interior cabinet cleaning</li><li>Detailed baseboard and trim cleaning</li><li>Heavy buildup removal</li><li>Detailed dusting throughout the home</li></ul><div class="best-for">Best for first-time cleanings, seasonal resets, and deep cleans.</div></div>
+        </div>
+
+        <div class="panel" style="margin-top: 28px;">
+          <h3>Optional Add-On Services</h3>
+          <div class="addon-grid" style="margin-top: 18px;">
+            <div class="chip">Dishwashing and kitchen reset</div>
+            <div class="chip">Laundry washing and folding</div>
+            <div class="chip">Interior window cleaning</div>
+            <div class="chip">Interior refrigerator cleaning</div>
+            <div class="chip">Interior oven cleaning</div>
+            <div class="chip">Interior cabinet cleaning</div>
+            <div class="chip">Baseboard and detail cleaning</div>
+            <div class="chip">Extra appliance cleaning</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-estimate" class="page">
+      <div class="container">
+        <button class="page-back" data-page-link="home">← Back to Home</button>
+        <div class="form-layout">
+          <div>
+            <h2>Get a Free Estimate</h2>
+            <p class="muted">Ready to book a clean or request a quote? Fill out the form and use it as your lead capture page.</p>
+            <div style="margin-top: 24px; display: grid; gap: 12px;">
+              <div><strong>Phone:</strong> (336) 000-0000</div>
+              <div><strong>Email:</strong> info@primefinishcleaningco.com</div>
+              <div><strong>Hours:</strong> Monday–Saturday</div>
+            </div>
+          </div>
+
+          <div class="form-wrap">
+            <form>
+              <div class="fields">
+                <label>Name<input placeholder="Your name" /></label>
+                <label>Phone<input placeholder="Your phone number" /></label>
+                <label class="full">Email<input placeholder="Your email" /></label>
+                <label class="full">Address<input placeholder="Property address" /></label>
+                <label>Type of Cleaning<select><option>Routine Home Cleaning</option><option>Deep Cleaning</option><option>Move-In / Move-Out Cleaning</option><option>Commercial Cleaning</option><option>Airbnb & Rental Turnovers</option><option>Post-Construction Cleaning</option></select></label>
+                <label>Square Footage<input placeholder="Approx. size" /></label>
+                <label class="full">Message<textarea placeholder="Tell us about the job"></textarea></label>
+              </div>
+              <button type="button" class="btn btn-primary" style="margin-top: 18px;">Request Free Quote</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-employment" class="page">
+      <div class="container">
+        <button class="page-back" data-page-link="home">← Back to Home</button>
+        <div class="form-layout">
+          <div>
+            <h2>Work With Prime Finish Cleaning Co</h2>
+            <p class="muted">Let people apply directly through your website if they want to join your team. This is good for building your crew as the business grows.</p>
+            <div style="margin-top: 24px; display: grid; gap: 12px;">
+              <div><strong>Looking for:</strong> Reliable cleaners, team members, and job-based workers</div>
+              <div><strong>Service area:</strong> Triad area and surrounding cities</div>
+              <div><strong>Ideal fit:</strong> Dependable, detail-oriented, and flexible</div>
+            </div>
+          </div>
+
+          <div class="form-wrap">
+            <form>
+              <div class="fields">
+                <label>Full Name<input placeholder="Applicant name" /></label>
+                <label>Phone<input placeholder="Best phone number" /></label>
+                <label class="full">Email<input placeholder="Email address" /></label>
+                <label>City<input placeholder="City" /></label>
+                <label>Transportation<select><option>Reliable transportation</option><option>Transportation sometimes available</option><option>No transportation currently</option></select></label>
+                <label>Cleaning Experience<select><option>No experience</option><option>Some experience</option><option>1+ years experience</option><option>3+ years experience</option></select></label>
+                <label>Availability<input placeholder="Days and hours available" /></label>
+                <label class="full">Tell Us About Yourself<textarea placeholder="Experience, strengths, and what type of jobs you want"></textarea></label>
+
+                <div class="screening-header">
+                  <h3>Screening Questions</h3>
+                  <p>These questions help us understand your reliability, work style, and overall fit for our team.</p>
+                </div>
+
+                <label class="full">If you are scheduled to work and your car does not start that morning, what would you do?<textarea placeholder="Tell us how you would handle the situation"></textarea></label>
+                <label class="full">Describe your cleaning experience or cleaning skills.<textarea placeholder="Describe your skills and past experience"></textarea></label>
+                <label class="full">How do you prioritize your work when cleaning a home or property?<textarea placeholder="Explain how you organize your cleaning process"></textarea></label>
+                <label>Are you comfortable cleaning in homes with pets such as dogs or cats?<select><option>Yes</option><option>No</option><option>Depends on the situation</option></select></label>
+                <label>Are you comfortable being paid per job rather than hourly?<select><option>Yes</option><option>No</option><option>I would like to discuss this</option></select></label>
+                <label class="full">If you were working on a team and another cleaner was not doing their share of the work, how would you handle the situation?<textarea placeholder="Tell us how you handle teamwork issues"></textarea></label>
+                <label class="full">A client leaves money on a table while you are cleaning. What would you do?<textarea placeholder="Tell us how you would handle this professionally"></textarea></label>
+                <label class="full">What steps do you take to make sure a cleaning job is done thoroughly?<textarea placeholder="Describe your process for doing a thorough job"></textarea></label>
+                <label>Are you willing to learn new cleaning techniques or systems?<select><option>Yes</option><option>No</option><option>Depends on training</option></select></label>
+                <label>On a scale from 1–10, how reliable would you say you are, and why?<input placeholder="Example: 9 - because I communicate early and show up prepared" /></label>
+                <label class="full">Why should we hire you to work with Prime Finish Cleaning Co?<textarea placeholder="Tell us why you would be a strong fit for our team"></textarea></label>
+              </div>
+              <button type="button" class="btn btn-primary" style="margin-top: 18px;">Submit Application</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-partners" class="page">
+      <div class="container">
+        <button class="page-back" data-page-link="home">← Back to Home</button>
+        <div class="panel">
+          <h2>For Property Managers & Contractors</h2>
+          <p class="muted">Prime Finish Cleaning Co supports rental turnovers, office spaces, listing preparation, and post-construction cleanup across the Triad.</p>
+          <div class="partners-grid" style="margin-top: 20px;">
+            <div class="chip">Apartment turnovers and rental ready service</div>
+            <div class="chip">Post-renovation and post-construction cleanup</div>
+            <div class="chip">Real estate listing preparation</div>
+            <div class="chip">Office and shared-space cleaning</div>
+            <div class="chip">Flexible scheduling for ongoing partnerships</div>
+            <div class="chip">Fast support for contractors and property managers</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-areas" class="page">
+      <div class="container">
+        <button class="page-back" data-page-link="home">← Back to Home</button>
+        <h2>Service Areas</h2>
+        <p class="muted">Prime Finish Cleaning Co provides cleaning services across the Triad and nearby areas.</p>
+        <div class="areas-grid" style="margin-top: 20px;">
+          <div class="chip">Greensboro</div>
+          <div class="chip">Winston-Salem</div>
+          <div class="chip">High Point</div>
+          <div class="chip">Kernersville</div>
+          <div class="chip">Burlington</div>
+          <div class="chip">Jamestown</div>
+          <div class="chip">Clemmons</div>
+          <div class="chip">Archdale</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>© Prime Finish Cleaning Co. All rights reserved.</div>
+      <div>Greensboro • Winston-Salem • High Point • Kernersville</div>
+    </div>
+  </footer>
+
+  <script>
+    const pageLinks = document.querySelectorAll('[data-page-link]');
+    const pages = document.querySelectorAll('.page');
+    const navLinks = document.querySelectorAll('.nav a');
+
+    function showPage(pageName) {
+      pages.forEach((page) => {
+        page.classList.toggle('active', page.id === `page-${pageName}`);
+      });
+
+      navLinks.forEach((link) => {
+        link.classList.toggle('active', link.dataset.pageLink === pageName);
+      });
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    pageLinks.forEach((link) => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        const pageName = link.dataset.pageLink;
+        if (pageName) showPage(pageName);
+      });
+    });
+  </script>
+</body>
+</html>
